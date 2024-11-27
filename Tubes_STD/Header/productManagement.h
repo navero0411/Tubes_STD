@@ -12,6 +12,7 @@
 #define first(L) ((L).first)
 #define next(P) P->next
 #define info(P) P->info
+#define adrPgr(Q) Q.adrPgr
 using namespace std;
 
 struct InfoProgrammer {
