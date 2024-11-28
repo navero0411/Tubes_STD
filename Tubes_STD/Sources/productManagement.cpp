@@ -10,9 +10,36 @@
 #include "productManagement.h"
 using namespace std;
 
-void insertFirst_Programmer(listProgrammer &LPGR, adrPgr PG);
-void insertFirst_Penugasan(listProgrammer &LPGR, adrPgr PG, adrTugas PT);
-void insertLast_Project(listProject &LPRJ, adrPrj PJ);
+void insertFirst_Programmer(listProgrammer &LPGR, adrPgr PG) {
+    if (firstPGR(LPGR) == NULL) {
+        firstPGR(LPGR) = PG;
+    } else {
+        nextPgr(PG) = firstPGR(LPGR);
+        firstPGR(LPGR) = PG;
+    }
+}
+
+void insertFirst_Penugasan(listProgrammer &LPGR, adrPgr PG, adrTugas PT) {
+    if (firstPenugasan(PG) == NULL) {
+        firstPenugasan(PG) = PT;
+    } else {
+        nextTugas(PT) = firstPenugasan(PG);
+        prevTugas(firstPenugasan(PG)) = PT;
+        firstPenugasan(PG) = PT;
+    }
+}
+
+void insertLast_Project(listProject &LPRJ, adrPrj PJ) {
+    if (firstPRJ(LPRJ) == NULL) {
+        firstPRJ(LPRJ) = PJ;
+    } else {
+        adrPrj p = firstPRJ(LPRJ);
+        while (p != NULL) {
+            p = nextPrj(p);
+        }
+        nextPrj(p) = PJ;
+    }
+}
 
 void deleteFirst_Programmer(listProgrammer &LPGR, adrPgr PG);
 void deleteFirst_Project(listProject &LPRJ, adrPrj PJ);

@@ -9,10 +9,16 @@
 #define PRODUCTMANAGEMENT_H_INCLUDED
 #include <iostream>
 #include <stdio.h>
-#define first(L) ((L).first)
-#define next(P) P->next
-#define info(P) P->info
-#define adrPgr(Q) Q.adrPgr
+#define firstPGR(L) ((L).firstPGR)
+#define firstPRJ(L) ((L).firstPRJ)
+#define nextPgr(P) P->nextPgr
+#define nextPrj(P) P->nextPrj
+#define nextTugas(P) P->nextTugas
+#define infoPgr(P) P->infoPgr
+#define infoPrj(P) P->infoPrj
+#define prevTugas(P) P->prevTugas
+#define project(P) P->project
+#define firstPenugasan(P) P->firstPenugasan
 using namespace std;
 
 struct InfoProgrammer {
@@ -30,13 +36,13 @@ typedef struct elmProject *adrPrj;
 typedef struct elmPenugasan *adrTugas;
 
 struct elmProgrammer {
-    InfoProgrammer info;
+    InfoProgrammer infoPgr;
     adrPgr nextPgr;
     adrTugas firstPenugasan;
 };
 
 struct elmProject {
-    InfoProject info;
+    InfoProject infoPrj;
     adrPrj nextPrj;
 };
 
@@ -47,11 +53,11 @@ struct elmPenugasan {
 };
 
 struct listProgrammer {
-    adrPgr first;
+    adrPgr firstPGR;
 };
 
 struct listProject {
-    adrPrj first;
+    adrPrj firstPRJ;
 };
 
 void insertFirst_Programmer(listProgrammer &LPGR, adrPgr PG);
