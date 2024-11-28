@@ -41,7 +41,9 @@ void insertLast_Project(listProject &LPRJ, adrPrj PJ) {
     }
 }
 
-void deleteFirst_Programmer(listProgrammer &LPGR, adrPgr PG);
+void deleteFirst_Programmer(listProgrammer &LPGR, adrPgr PG) {
+    cout << "coba aja" << endl;
+}
 void deleteFirst_Project(listProject &LPRJ, adrPrj PJ);
 void deleteFirst_Penugasan(listProgrammer &LPGR, adrPgr PG, adrTugas PT);
 void deleteLast_Programmer(listProgrammer &LPGR, adrPgr PG);
