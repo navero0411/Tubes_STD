@@ -43,6 +43,7 @@ void insertLast_Project(listProject &LPRJ, adrPrj PJ) {
 
 void deleteFirst_Programmer(listProgrammer &LPGR, adrPgr PG) {
     cout << "coba aja" << endl;
+    cout << "telkom" << endl;
 }
 void deleteFirst_Project(listProject &LPRJ, adrPrj PJ);
 void deleteFirst_Penugasan(listProgrammer &LPGR, adrPgr PG, adrTugas PT);
