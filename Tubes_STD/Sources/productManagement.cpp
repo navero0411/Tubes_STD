@@ -45,9 +45,10 @@ void deleteFirst_Programmer(listProgrammer &LPGR, adrPgr PG) {
     cout << "coba aja" << endl;
     cout << "telkom" << endl;
 }
-void deleteAfter_Programmer(listProgrammer &LPGR, adrPgr PG, adrPgr prec);
-void deleteAfter_Project(listProject &LPRJ, adrPrj PJ, adrPrj prec );
-void deleteAfter_Penugasan(listProgrammer &LPGR, adrPgr PG, adrTugas PT, adrTugas prec);
+
+void deleteProgrammer(listProgrammer &LPGR, adrPgr PG, adrPgr prec);
+void deleteProject(listProject &LPRJ, adrPrj PJ, adrPrj prec);
+void deletePenugasan(listProgrammer &LPGR, adrPgr PG, adrTugas PT, adrTugas prec);
 
 void view_Programmer(listProgrammer LPGR) {
     if (firstPGR(LPGR) == NULL) {
