@@ -153,6 +153,8 @@ void deleteProgrammer(listProgrammer &LPGR, adrPgr delPG, string user) {
             nextPgr(prev) = nextPgr(delPG);
             nextPgr(delPG) = NULL;
         }
+        cout << "Programmer telah dihapus" << endl;
+        cout << endl;
     }
 }
 
@@ -188,6 +190,8 @@ void deleteProject(listProgrammer &LPGR, listProject &LPRJ, adrPrj delPJ, string
             nextPrj(prev) = nextPrj(delPJ);
             nextPrj(delPJ) = NULL;
         }
+        cout << "Project telah dihapus" << endl;
+        cout << endl;
     }
 }
 
@@ -228,9 +232,29 @@ void deletePenugasan(listProgrammer &LPGR, listProject LPRJ, string username, st
                 }
                 project(t)= NULL;
                 delTugas = t;
+                cout << "Penugasan telah dihapus" << endl;
+                cout << endl;
             }
         }
     }
 }
 
-
+void viewUtkProgrammer(listProgrammer LPGR, string username) {
+    adrPgr p = firstPGR(LPGR);
+    while (p != NULL && infoPgr(p).username != username) {
+        p = nextPgr(p);
+    }
+    
+    if (p == NULL) {
+        cout << "Maaf tidak ada programmer dengan username " << username << endl;
+    } else {
+        cout << "List penugasan programmer " << username << endl;
+        adrTugas t = firstPenugasan(p);
+        int i = 0;
+        while (t != NULL) {
+            adrPrj j = project(t);
+            cout << i+1 << infoPrj(j).namaProject << ", " << infoPrj(j).deadline << endl;
+            t = nextTugas(t);
+        }
+    }
+}
