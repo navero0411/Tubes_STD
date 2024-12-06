@@ -21,25 +21,30 @@
 #define firstPenugasan(P) P->firstPenugasan
 using namespace std;
 
+typedef struct elmProgrammer *adrPgr;
+typedef struct elmProject *adrPrj;
+typedef struct elmPenugasan *adrTugas;
+
 struct InfoProgrammer {
     string username;
     int totalProject;
 };
 
-struct InfoProject {
-    string namaProject;
-    int banyakProgrammer;
-};
-
-typedef struct elmProgrammer *adrPgr;
-typedef struct elmProject *adrPrj;
-typedef struct elmPenugasan *adrTugas;
+typedef InfoProgrammer infotypeProgrammer;
 
 struct elmProgrammer {
     InfoProgrammer infoPgr;
     adrPgr nextPgr;
     adrTugas firstPenugasan;
 };
+
+struct InfoProject {
+    string namaProject;
+    int banyakProgrammer;
+    int deadline;
+};
+
+typedef InfoProject infotypeProject;
 
 struct elmProject {
     InfoProject infoPrj;
@@ -60,17 +65,34 @@ struct listProject {
     adrPrj firstPRJ;
 };
 
-void insertFirst_Programmer(listProgrammer &LPGR, adrPgr PG);
-void insertFirst_Penugasan(listProgrammer &LPGR, adrPgr PG, adrTugas PT);
-void insertLast_Project(listProject &LPRJ, adrPrj PJ);
+void createListProgrammer(listProgrammer &LPGR);
+void createListProject(listProject &LPRJ);
+adrPgr createElmProgrammer(infotypeProgrammer newProg);
+adrPrj createElmProject(infotypeProject newProj);
+adrTugas createElmPenugasan(adrPrj tugasproject);
+
+// admin
+void insertProgrammer(listProgrammer &LPGR, adrPgr PG);
+void insertProject(listProject &LPRJ, adrPrj PJ);
+
+void editProgrammer(listProgrammer &LPGR, string usname);
+void editProject(listProject &LPRJ, string projectName);
 
 void deleteProgrammer(listProgrammer &LPGR, adrPgr delPG);
 void deleteProject(listProject &LPRJ, adrPrj delPJ);
+
+// manager
+void insertPenugasan(listProgrammer &LPGR, adrPgr PG, adrTugas PT);
 void deletePenugasan(listProgrammer &LPGR, adrPgr PG, string namaProject, adrTugas delPT);
 
 void view_Programmer(listProgrammer LPGR);
 void view_Project(listProject LPRJ);
 void view_Penugasan(listProgrammer LPGR);
 void view_All(listProgrammer LPGR, listProject LPRJ);
+
+void bikinTugas(listProgrammer &LPGR, listProject &LPRJ, InfoProgrammer Ipgr, InfoProject Iprj);
+
+// progr
+
 
 #endif /* productManagement_h */
