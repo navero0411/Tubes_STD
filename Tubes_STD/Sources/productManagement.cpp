@@ -14,6 +14,7 @@ adrPgr createElmProgrammer(infotypeProgrammer newProg) {
     adrPgr P = new elmProgrammer;
     infoPgr(P).username = newProg.username;
     infoPgr(P).totalProject = newProg.totalProject;
+    firstPenugasan(P) = NULL;
     nextPgr(P) = NULL;
     return P;
 }
@@ -95,17 +96,14 @@ void view_Project(listProject LPRJ) {
         cout << "Isi list programmer: " << endl;
         while (p != NULL) {
             cout << infoPrj(p).namaProject << ", " << infoPrj(p).banyakProgrammer << endl;
-            adrTugas q = firstPenugasan(p);
-            while (q != NULL) {
-                adrPrj r = project(q);
-                cout << infoPrj(r).namaProject << ", " << infoPrj(r).deadline << " | ";
-                q = nextTugas(q);
-            }
             p = nextPrj(p);
         }
         cout << endl;
     }
 }
+
+void view_Penugasan(listProgrammer LPGR);
+void view_All(listProgrammer LPGR, listProject LPRJ);
 
 void editProgrammer(listProgrammer &LPGR, string username) {
     int isi;
@@ -129,53 +127,110 @@ void editProgrammer(listProgrammer &LPGR, string username) {
     }
 }
 
-void deleteProgrammer(listProgrammer &LPGR, adrPgr delPG) {
-    if (firstPGR(LPGR) == NULL) {
-        cout << "Maaf list programmer kosong" << endl;
+void deleteProgrammer(listProgrammer &LPGR, adrPgr delPG, string user) {
+    delPG = firstPGR(LPGR);
+    adrPgr prev = NULL;
+    while (delPG != NULL && infoPgr(delPG).username != user) {
+        prev = delPG;
+        delPG = nextPgr(delPG);
+    }
+    
+    if (delPG == NULL) {
+        cout << "Maaf programmer tidak ada" << endl;
     } else {
-        adrTugas t = firstPenugasan(delPG);
-        while (t != NULL) {
-            project(t) = NULL;
-            t = nextTugas(t);
+        adrTugas p = firstPenugasan(delPG);
+        while (p != NULL) {
+            project(p) = NULL;
+            p = nextTugas(p);
         }
+        
+        if (delPG == firstPGR(LPGR)) {
+            firstPGR(LPGR) = nextPgr(delPG);
+            nextPgr(delPG) = NULL;
+        } else if (nextPgr(delPG) == NULL) {
+            nextPgr(prev) = NULL;
+        } else {
+            nextPgr(prev) = nextPgr(delPG);
+            nextPgr(delPG) = NULL;
+        }
+    }
+}
+
+void deleteProject(listProgrammer &LPGR, listProject &LPRJ, adrPrj delPJ, string namaProject) {
+    delPJ = firstPRJ(LPRJ);
+    adrPrj prev = NULL;
+    while (delPJ != NULL && infoPrj(delPJ).namaProject != namaProject) {
+        prev = delPJ;
+        delPJ = nextPrj(delPJ);
+    }
+    
+    if (delPJ == NULL) {
+        cout << "Maaf project tidak ada" << endl;
+    } else {
         adrPgr p = firstPGR(LPGR);
-        while (nextPgr(p) != delPG) {
+        while (p != NULL) {
+            adrTugas t = firstPenugasan(p);
+            while (t != NULL) {
+                if (project(t) == delPJ) {
+                    project(t) = NULL;
+                }
+                t = nextTugas(t);
+            }
             p = nextPgr(p);
         }
-        nextPgr(p) = nextPgr(delPG);
-        nextPgr(delPG) = NULL;
+        
+        if (delPJ == firstPRJ(LPRJ)) {
+            firstPRJ(LPRJ) = nextPrj(delPJ);
+            nextPrj(delPJ) = NULL;
+        } else if (nextPrj(delPJ) == NULL) {
+            nextPrj(prev) = NULL;
+        } else {
+            nextPrj(prev) = nextPrj(delPJ);
+            nextPrj(delPJ) = NULL;
+        }
     }
 }
 
-void deleteFirst_Programmer(listProgrammer &LPGR, adrPgr PG) {
-    if (firstPGR(LPGR) == NULL) {
-        cout << "Data Programmer Kosong" << endl;
+void deletePenugasan(listProgrammer &LPGR, listProject LPRJ, string username, string namaProject, adrTugas delTugas) {
+    adrPgr p = firstPGR(LPGR);
+    while (p != NULL && infoPgr(p).username != username) {
+        p = nextPgr(p);
+    }
+    if (p == NULL) {
+        cout << "Maaf programmer tidak ada" << endl;
     } else {
-        PG = firstPGR(LPGR);
-        firstPGR(LPGR) = nextPgr(PG);
-        nextPgr(PG) = NULL;
+        adrPrj j = firstPRJ(LPRJ);
+        while (j != NULL && infoPrj(j).namaProject != namaProject) {
+            j = nextPrj(j);
+        }
+        if (j == NULL) {
+            cout << "Maaf project tidak ada" << endl;
+        } else {
+            adrTugas t = firstPenugasan(p);
+            while (t != NULL && project(t) != j) {
+                t = nextTugas(t);
+            }
+            if (t == NULL) {
+                cout << "Maaf penugasan tidak ada" << endl;
+            } else {
+                if (t == firstPenugasan(p)) {
+                    firstPenugasan(p) = nextTugas(t);
+                    prevTugas(nextTugas(t)) = NULL;
+                    nextTugas(t) = NULL;
+                } else if (nextTugas(t) == NULL) {
+                    nextTugas(prevTugas(t)) = NULL;
+                    prevTugas(t) = NULL;
+                } else {
+                    nextTugas(prevTugas(t)) = nextTugas(t);
+                    prevTugas(nextTugas(t)) = prevTugas(t);
+                    nextTugas(t) = NULL;
+                    prevTugas(t) = NULL;
+                }
+                project(t)= NULL;
+                delTugas = t;
+            }
+        }
     }
 }
 
-void deleteFirst_Project(listProject &LPRJ, adrPrj PJ) {
-    if (firstPRJ(LPRJ) == NULL) {
-        cout << "Data Project Kosong" << endl;
-    } else {
-        PJ = firstPRJ(LPRJ);
-        firstPRJ(LPRJ) = nextPrj(PJ);
-        nextPrj(PJ) = NULL;
-    }
-}
 
-void deleteFirst_Penugasan(listProgrammer &LPGR, adrPgr PG, adrTugas PT);
-void deleteLast_Programmer(listProgrammer &LPGR, adrPgr PG);
-void deleteLast_Project(listProject &LPRJ, adrPrj PJ);
-void deleteLast_Penugasan(listProgrammer &LPGR, adrPgr PG, adrTugas PT);
-void deleteAfter_Programmer(listProgrammer &LPGR, adrPgr PG, adrPgr prec);
-void deleteAfter_Project(listProject &LPRJ, adrPrj PJ, adrPrj prec );
-void deleteAfter_Penugasan(listProgrammer &LPGR, adrPgr PG, adrTugas PT, adrTugas prec);
-
-void view_Programmer(listProgrammer LPGR);
-void view_Project(listProject LPRJ);
-void view_Penugasan(listProgrammer LPGR);
-void view_All(listProgrammer LPGR, listProject LPRJ);

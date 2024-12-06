@@ -78,12 +78,12 @@ void insertProject(listProject &LPRJ, adrPrj PJ);
 void editProgrammer(listProgrammer &LPGR, string usname);
 void editProject(listProject &LPRJ, string projectName);
 
-void deleteProgrammer(listProgrammer &LPGR, adrPgr delPG);
-void deleteProject(listProject &LPRJ, adrPrj delPJ);
+void deleteProgrammer(listProgrammer &LPGR, adrPgr delPG, string user);
+void deleteProject(listProgrammer &LPGR, listProject &LPRJ, adrPrj delPJ, string namaProject);
 
 // manager
 void insertPenugasan(listProgrammer &LPGR, adrPgr PG, adrTugas PT);
-void deletePenugasan(listProgrammer &LPGR, adrPgr PG, string namaProject, adrTugas delPT);
+void deletePenugasan(listProgrammer &LPGR, listProject LPRJ, string username, string namaProject);
 
 void view_Programmer(listProgrammer LPGR);
 void view_Project(listProject LPRJ);
@@ -92,7 +92,8 @@ void view_All(listProgrammer LPGR, listProject LPRJ);
 
 void bikinTugas(listProgrammer &LPGR, listProject &LPRJ, InfoProgrammer Ipgr, InfoProject Iprj);
 
-// progr
+// programmer
+
 
 
 #endif /* productManagement_h */
