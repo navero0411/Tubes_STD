@@ -78,16 +78,17 @@ void insertProject(listProject &LPRJ, adrPrj PJ);
 void editProgrammer(listProgrammer &LPGR, string usname);
 void editProject(listProject &LPRJ, string projectName);
 
-void deleteProgrammer(listProgrammer &LPGR, adrPgr delPG, string user);
-void deleteProject(listProgrammer &LPGR, listProject &LPRJ, adrPrj delPJ, string namaProject);
+void deleteProgrammer(listProgrammer &LPGR, adrPgr &delPG, string user);
+void deleteProject(listProgrammer &LPGR, listProject &LPRJ, adrPrj &delPJ, string namaProject);
 
 // manager
-void insertPenugasan(listProgrammer &LPGR, adrPgr PG, adrTugas PT);
-void deletePenugasan(listProgrammer &LPGR, listProject LPRJ, string username, string namaProject);
+void insertPenugasan(listProgrammer &LPGR, listProject &LPRJ, adrPgr PG, adrTugas PT, adrPrj PJ);
+void deletePenugasan(listProgrammer &LPGR, listProject LPRJ, string username, string namaProject, adrTugas &delTugas);
 
 void view_Programmer(listProgrammer LPGR);
 void view_Project(listProject LPRJ);
 void view_Penugasan(listProgrammer LPGR);
+void view_PenugasanProject(listProject LPRJ, listProgrammer LPGR);
 void view_All(listProgrammer LPGR, listProject LPRJ);
 
 void bikinTugas(listProgrammer &LPGR, listProject &LPRJ, InfoProgrammer Ipgr, InfoProject Iprj);
@@ -95,5 +96,7 @@ void bikinTugas(listProgrammer &LPGR, listProject &LPRJ, InfoProgrammer Ipgr, In
 // programmer
 void viewUtkProgrammer(listProgrammer LPGR, string username);
 
+adrPgr searchUsernameProgrammer(listProgrammer &LPGR, string usn);
+adrPrj searchProjectName(listProject &LPRJ, string nameproject);
 
 #endif /* productManagement_h */
