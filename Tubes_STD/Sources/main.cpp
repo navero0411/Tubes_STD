@@ -115,7 +115,7 @@ void adminMenu() {
                 cin >> IPJ.namaProject;
                 cout << "Masukkan deadline: ";
                 cin >> IPJ.deadline;
-                while (IPJ.namaProject != "sudah" && IPJ.deadline != 0) {
+                while (IPJ.namaProject != "sudah" || IPJ.deadline != 0) {
                     PJ = createElmProject(IPJ);
                     insertProject(project, PJ);
                     cout << "Masukkan nama project ('sudah' jika selesai): ";
@@ -127,18 +127,27 @@ void adminMenu() {
                 cout << endl;
             break;
         case 4:
+                cout << endl;
                 view_Project(project);
             break;
         case 5:
+                cout << "Siapa yang ingin diupdate: ";
+                cin >> usnPgr;
                 editProgrammer(programmer, usnPgr);
             break;
         case 6:
+                cout << "Project yang ingin diupdate: ";
+                cin >> usnPrj;
                 editProject(project, usnPrj);
             break;
         case 7:
+                cout << "Programmer yang ingin dihapus: ";
+                cin >> usnPgr;
                 deleteProgrammer(programmer, delPG, usnPgr);
             break;
         case 8:
+                cout << "Project yang ingin dihapus: ";
+                cin >> usnPrj;
                 deleteProject(programmer, project, delPJ, usnPrj);
             break;
         case 0:
@@ -177,7 +186,14 @@ void managerMenu() {
                 PG = searchUsernameProgrammer(programmer, usnPgr);
                 PJ = searchProjectName(project, usnPrj);
                 PT = createElmPenugasan(PJ);
-                insertPenugasan(programmer, project, PG, PT, PJ);
+                if (PG != NULL && PJ != NULL) {
+                    insertPenugasan(programmer, project, PG, PT, PJ);
+                    cout << usnPgr << " telah ditugaskan" << endl;
+                    cout << endl;
+                } else {
+                    cout << "Data tidak ada." << endl;
+                }
+                cout << endl;
             break;
         case 2:
                 cout << endl;

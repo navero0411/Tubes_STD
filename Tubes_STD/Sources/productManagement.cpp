@@ -115,16 +115,6 @@ void view_Project(listProject LPRJ) {
     }
 }
 
-
-void view_Penugasan(listProgrammer LPGR);
-void view_All(listProgrammer LPGR, listProject LPRJ);
-
-// Fungsi untuk menampilkan list penugasan
-void view_Penugasan(listProgrammer LPGR);
-
-// Fungsi untuk menampilkan semua data programmer dan project
-void view_All(listProgrammer LPGR, listProject LPRJ);
-
 // Fungsi untuk mengedit data programmer berdasarkan username
 void editProgrammer(listProgrammer &LPGR, string usname) {
     adrPgr P = searchUsernameProgrammer(LPGR, usname); // Cari programmer berdasarkan username
