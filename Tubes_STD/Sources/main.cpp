@@ -40,15 +40,14 @@ int main() {
         cout << "============================\n";
         cout << "Choose an option: ";
         cin >> choice;
+        cout << endl;
 
         switch (choice) {
         case 1:
-            cout << "\nAdmin Login\n";
             adminMenu();
             break;
 
         case 2:
-            cout << "\nManager Login\n";
             managerMenu();
             break;
 
@@ -57,6 +56,7 @@ int main() {
             cout << "Username: ";
             cin >> username;
             programmerMenu(username);
+            cout << endl;
             break;
 
         case 0:
@@ -75,10 +75,12 @@ int main() {
 void adminMenu() {
     int choice;
     do {
-        cout << "\nAdmin Menu\n";
-        cout << "1. Insert Programmer\n";
+        cout << "============================\n";
+        cout << "\tAdmin Menu\n";
+        cout << "============================\n";
+        cout << "1. Tambah Programmer\n";
         cout << "2. View Programmers\n";
-        cout << "3. Insert Project\n";
+        cout << "3. Tambah Project\n";
         cout << "4. View Projects\n";
         cout << "5. Update Programmer\n";
         cout << "6. Update Project\n";
@@ -87,6 +89,7 @@ void adminMenu() {
         cout << "0. Logout\n";
         cout << "Choose an option: ";
         cin >> choice;
+        
 
         switch (choice) {
         case 1:
@@ -100,6 +103,7 @@ void adminMenu() {
                     cin >> IPG.username;
                 }
                 cout << "Programmer telah ditambah" << endl;
+                cout << endl;
             break;
         case 2:
                 cout << endl;
@@ -120,6 +124,7 @@ void adminMenu() {
                     cin >> IPJ.deadline;
                 }
                 cout << "Project telah ditambah" << endl;
+                cout << endl;
             break;
         case 4:
                 view_Project(project);
@@ -141,7 +146,7 @@ void adminMenu() {
                 cout << endl;
             break;
         default:
-            cout << "Invalid option! Please try again.\n";
+            cout << "Invalid! Coba lagi.\n";
         }
     } while (choice != 0);
 }
@@ -149,14 +154,16 @@ void adminMenu() {
 void managerMenu() {
     int choice;
     do {
-        cout << "\nManager Menu\n";
-        cout << "1. Assign Project\n";
-        cout << "2. View Assignments by Programmer\n";
-        cout << "3. View Assignments by Project\n";
-        cout << "4. View Programmer Assignment Count\n";
-        cout << "5. View Project Assignment Count\n";
+        cout << "============================\n";
+        cout << "\tManager Menu\n";
+        cout << "============================\n";
+        cout << "1. Tambah Penugasan\n";
+        cout << "2. View Assignments Berdasarkan Programmer\n";
+        cout << "3. View Assignments Berdasarkan Project\n";
+        cout << "4. View Total Penugasan Setiap Programmer\n";
+        cout << "5. View Total Penugasan Setiap Project\n";
         cout << "6. Update Assignment Status\n";
-        cout << "7. Remove Assignment\n";
+        cout << "7. Hapus Assignment\n";
         cout << "0. Logout\n";
         cout << "Choose an option: ";
         cin >> choice;
@@ -180,13 +187,13 @@ void managerMenu() {
                 view_PenugasanProject(project, programmer);
             break;
         case 4:
-            
+                allProgrammerWithAllPenugasan(programmer);
             break;
         case 5:
-            
+                jumlahProgrammerDalamProject(project);
             break;
         case 6:
-            
+                updateStatus(programmer, project);
             break;
         case 7:
                 cout << "Siapa yang akan diubah? ";
@@ -207,7 +214,9 @@ void managerMenu() {
 void programmerMenu(string username) {
     int choice;
     do {
-        cout << "\nProgrammer Menu\n";
+        cout << "============================\n";
+        cout << "\tProgrammer Menu\n";
+        cout << "============================\n";
         cout << "1. View Assignments\n";
         cout << "0. Logout\n";
         cout << "Choose an option: ";

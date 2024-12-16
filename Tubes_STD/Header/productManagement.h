@@ -19,6 +19,7 @@
 #define prevTugas(P) P->prevTugas
 #define project(P) P->project
 #define firstPenugasan(P) P->firstPenugasan
+#define status(P) P->status
 using namespace std;
 
 typedef struct elmProgrammer *adrPgr;
@@ -55,6 +56,7 @@ struct elmPenugasan {
     adrTugas nextTugas;
     adrTugas prevTugas;
     adrPrj project;
+    string status;
 };
 
 struct listProgrammer {
@@ -91,7 +93,9 @@ void view_Penugasan(listProgrammer LPGR);
 void view_PenugasanProject(listProject LPRJ, listProgrammer LPGR);
 void view_All(listProgrammer LPGR, listProject LPRJ);
 
-void bikinTugas(listProgrammer &LPGR, listProject &LPRJ, InfoProgrammer Ipgr, InfoProject Iprj);
+void allProgrammerWithAllPenugasan(listProgrammer LPGR);
+void jumlahProgrammerDalamProject(listProject LPRJ);
+void updateStatus(listProgrammer LPGR, listProject LPRJ);
 
 // programmer
 void viewUtkProgrammer(listProgrammer LPGR, string username);

@@ -37,6 +37,7 @@ adrTugas createElmPenugasan(adrPrj tugasproject) {
     adrTugas N = new elmPenugasan;
     nextTugas(N) = NULL;
     prevTugas(N) = NULL;
+    status(N) = "Ongoing";
     project(N) = tugasproject;
     return N;
 }
@@ -89,7 +90,7 @@ void view_Programmer(listProgrammer LPGR) {
             adrTugas q = firstPenugasan(p);
             while (q != NULL) {
                 adrPrj r = project(q);
-                cout << infoPrj(r).namaProject << ", " << infoPrj(r).deadline << " hari | ";
+                cout << infoPrj(r).namaProject << ", " << infoPrj(r).deadline << " hari, " << status(q) << " | ";
                 q = nextTugas(q);
             }
             p = nextPgr(p);
@@ -392,6 +393,83 @@ void view_PenugasanProject(listProject LPRJ, listProgrammer LPGR) {
 
             proj = nextPrj(proj);
             cout << endl;
+        }
+    }
+}
+
+
+// Mengupdate status penugasan
+void updateStatus(listProgrammer LPGR, listProject LPRJ) {
+    string prog, proj, stt;
+    cout << "Tugas apa yang diubah? (Programmer dan Project): ";
+    cin >> prog;
+    cin >> proj;
+    
+    adrPgr PG = searchUsernameProgrammer(LPGR, prog);
+    adrPrj PJ = searchProjectName(LPRJ, proj);
+    
+    adrTugas PT = firstPenugasan(PG);
+    adrTugas ketemu = NULL;
+    while (PT != NULL) {
+        if (project(PT) == PJ) {
+            ketemu = PT;
+        }
+        PT = nextTugas(PT);
+    }
+    
+    if (ketemu == NULL) {
+        cout << "Maaf penugasan tidak ada" << endl;
+    } else {
+        cout << "Status penugasan: " << status(ketemu) << endl;
+        cout << "Ubah status menjadi apa (Ongoing/Completed): ";
+        cin >> stt;
+        status(ketemu) = stt;
+        cout << "Status berhasil diubah! Status baru: " << status(ketemu) << endl;
+    }
+}
+
+void allProgrammerWithAllPenugasan(listProgrammer LPGR) {
+    if (firstPGR(LPGR) == NULL) {
+        cout << "Tidak ada programmer dalam list." << endl;
+    } else {
+        adrPgr programmer = firstPGR(LPGR);
+        cout << "Daftar Programmer dan Total Penugasannya:" << endl;
+        while (programmer != NULL) {
+            cout << "Programmer: " << infoPgr(programmer).username
+                 << ", Total Penugasan: " << infoPgr(programmer).totalProject << endl;
+
+            adrTugas tugas = firstPenugasan(programmer);
+            if (tugas == NULL) {
+                cout << "  Tidak ada penugasan." << endl;
+            } else {
+                cout << "  Penugasan:" << endl;
+                while (tugas != NULL) {
+                    adrPrj project = project(tugas);
+                    if (project != NULL) {
+                        cout << "    - Project: " << infoPrj(project).namaProject
+                             << ", Deadline: " << infoPrj(project).deadline << " hari" << endl;
+                    }
+                    tugas = nextTugas(tugas);
+                }
+            }
+
+            programmer = nextPgr(programmer);
+            cout << endl;
+        }
+    }
+}
+
+void jumlahProgrammerDalamProject(listProject LPRJ) {
+    if (firstPRJ(LPRJ) == NULL) {
+        cout << "Tidak ada project dalam list." << endl;
+    } else {
+        adrPrj project = firstPRJ(LPRJ);
+        cout << "Daftar Project dan Jumlah Programmer yang Ditugaskan:" << endl;
+        while (project != NULL) {
+            cout << "Project: " << infoPrj(project).namaProject
+                 << ", Jumlah Programmer: " << infoPrj(project).banyakProgrammer << endl;
+
+            project = nextPrj(project);
         }
     }
 }
