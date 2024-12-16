@@ -139,7 +139,7 @@ void editProject(listProject &LPRJ, string nama) {
     if (Q != NULL) {
         string newnameproject;
         cout << "Nama projek ditemukan. " << infoPrj(Q).namaProject << endl;
-        cout << "Antum yakin ingin mengubah nama projek? (1.Ya/2.Tidak)" << endl;
+        cout << "Antum yakin ingin mengubah nama projek? (1.Ya/2.Tidak)";
         cin >> jawaban;
         
         if (jawaban == "Ya") {
@@ -262,6 +262,7 @@ void deletePenugasan(listProgrammer &LPGR, listProject LPRJ, string username, st
             j = nextPrj(j);
         }
         
+        
         if (j == NULL) {
             cout << "Maaf project tidak ada" << endl; // Project tidak ditemukan
         } else {
@@ -275,6 +276,8 @@ void deletePenugasan(listProgrammer &LPGR, listProject LPRJ, string username, st
             if (t == NULL) {
                 cout << "Maaf penugasan tidak ada" << endl; // Penugasan tidak ditemukan
             } else {
+                infoPgr(p).totalProject--;
+                infoPrj(j).banyakProgrammer--;
                 // Hapus penugasan dari list
                 if (t == firstPenugasan(p)) {
                     firstPenugasan(p) = nextTugas(t);
